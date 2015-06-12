@@ -1,5 +1,5 @@
 " Date Create: 2015-05-28 10:36:14
-" Last Change: 2015-06-11 23:27:43
+" Last Change: 2015-06-12 12:57:44
 " Author: Artur Sh. Mamedbekov (Artur-Mamedbekov@yandex.ru)
 " License: GNU GPL v3 (http://www.gnu.org/copyleft/gpl.html)
 
@@ -19,7 +19,7 @@ endfunction " }}}
 function! s:Class.silentExec(comm) " {{{
   let l:cwd = getcwd()
   exe 'cd ' . self.testDir
-  call s:System.silentExe('phpunit ' . a:comm . ' > errors.err')
+  call s:System.silentExe('phpunit ' . a:comm . ' > errors.err 2>&1')
   exe 'cd ' . l:cwd
 
   let l:efm = &errorformat
@@ -43,7 +43,7 @@ function! s:Class.runFile(file) " {{{
 endfunction " }}}
 
 function! s:Class.runTest(file, test) " {{{
-  call self.silentExec('--filter ' . a:test . ' ' . a:file)
+  call self.exec('--filter ' . a:test . ' ' . a:file)
 endfunction " }}}
 
 let g:vim_unittest_phpunit#adapter = s:Class
